@@ -13,7 +13,7 @@
 
 ---
 
-Fuzzie is a Wi-Fi protocol fuzzer you control through conversation. Instead of memorizing CLI flags, you describe what you want to test — Fuzzie figures out the parameters, runs the fuzzer, and hands you a report when something breaks.
+Fuzzie is a Wi-Fi protocol fuzzer you control through conversation. Instead of memorizing CLI flags or protocol theory, you describe what you want to test — Fuzzie figures out the rest, runs the fuzzer, and hands you a report when something breaks.
 
 Built for **802.11**, but the architecture is intentionally protocol-agnostic.
 
@@ -21,7 +21,7 @@ Built for **802.11**, but the architecture is intentionally protocol-agnostic.
 
 ## The Idea
 
-Traditional protocol fuzzers are powerful but annoying to use. You need to know the exact frame types, field offsets, mutation strategies — before you've even started testing. We wanted something where you could just say *"fuzz beacon frames on this router"* and have it work.
+Traditional protocol fuzzers are powerful but annoying to use. You need to know the exact frame types, field offsets, mutation strategies — before you've even started testing. We wanted something where you could just say *"fuzz beacon frames on this router"* or *"intern here: boss told me to fuzz test, pls help!"* and have it work.
 
 So we built a three-layer agent system:
 
@@ -35,10 +35,10 @@ Each layer is independent — you can swap the chat interface, the fuzzer engine
 
 ## What's Working
 
-- **Conversational interface** via Telegram (demo) — send a message, get fuzzing
-- **LLM-driven config generation** — describe your target, the agent generates fuzzer parameters
+- **Conversational interface** via Telegram (demo) — send a message, get fuzzing or use it like a chatbot to digest protocol documentation
+- **LLM-driven config generation** — describe your target device, the agent generates fuzzer parameters or send them in natural language
 - **Live status updates** — progress streams back to your chat as it runs
-- **Crash detection + PDF reports** — when something breaks, you get a structured report with CVE correlation
+- **Crash detection + PDF reports** — when something breaks, you get a structured report in your company's format with CVE correlation through RAG
 
 ---
 
@@ -46,24 +46,8 @@ Each layer is independent — you can swap the chat interface, the fuzzer engine
 
 > *Hackathon build — these sections aren't done yet*
 
-- [ ] **Voice interface** — architecture supports it, adapter not built
-- [ ] **CVE correlation** — report template exists, actual CVE lookup is stubbed
-- [ ] **Horizontal scaling** — designed for it, not tested with multiple agents
+- [ ] **Other chat/voice interfaces** — architecture supports it, adapters not built
 - [ ] **Non-802.11 protocols** — Bluetooth/Zigbee support is on the roadmap
-
----
-
-## File Structure
-
-| File | What it does |
-|------|-------------|
-| `agent.py` | Entry point — wires everything together |
-| `telegram_adapter.py` | Chat interface (swap this for other platforms) |
-| `gemini_adapter.py` | LLM client — returns structured JSON decisions |
-| `fuzz.py` | The actual fuzzer CLI |
-| `report_generator.py` | Logs → LLM → HTML → PDF |
-| `system_prompt.py` | Prompt for fuzzing decisions |
-| `report_prompt.py` | Prompt for crash report generation |
 
 ---
 
@@ -74,10 +58,9 @@ Each layer is independent — you can swap the chat interface, the fuzzer engine
 ```bash
 git clone https://github.com/yourusername/fuzzie.git
 cd fuzzie
-pip install -r requirements.txt
-cp .env.example .env
-# add your API keys to .env
-sudo python3 agent.py
+
+
+TBD
 ```
 
 Then in Telegram:
@@ -99,12 +82,12 @@ Not just a fuzzer — you can also ask it questions about 802.11 frames, protoco
 
 The three-layer split makes swapping things out straightforward:
 
-- **Different chat platform?** Replace `telegram_adapter.py`
-- **Different protocol?** Replace `fuzz.py` with a Bluetooth/Zigbee fuzzer
-- **Different LLM?** Replace `gemini_adapter.py`
+- **Different chat platform?** Easily Integrable 
+- **Different protocol?** Replace the core CLI tool with a Bluetooth/Zigbee fuzzer
+- **Different LLM?** We support `BYOK`
 
 ---
 
 ## License
 
-[Unlicense](https://unlicense.org) — public domain, do whatever you want with it.
+[Unlicense](https://unlicense.org) — public domain, do whatever you want with it!
