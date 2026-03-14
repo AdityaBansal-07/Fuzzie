@@ -35,7 +35,7 @@ Each layer is independent — you can swap the chat interface, the fuzzer engine
 
 ## What's Working
 
-- **Conversational interface** via Telegram (demo) — send a message, get fuzzing or use it like a chatbot to digest protocol documentation
+- **Conversational interface** via Telegram — send a message, get fuzzing or use it like a chatbot to digest protocol documentation
 - **LLM-driven config generation** — describe your target device, the agent generates fuzzer parameters or send them in natural language
 - **Live status updates** — progress streams back to your chat as it runs
 - **Crash detection + PDF reports** — when something breaks, you get a structured report in your company's format with CVE correlation through RAG
